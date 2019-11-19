@@ -24,8 +24,8 @@ import model.DataSourceFactory;
  *
  * @author pedago
  */
-@WebServlet(name = "DiscountCode", urlPatterns = {"/DiscountCode"})
-public class DiscountCodeInJsonServlet extends HttpServlet {
+@WebServlet(name = "addCode", urlPatterns = {"/addCode"})
+public class addCode extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,8 +43,10 @@ public class DiscountCodeInJsonServlet extends HttpServlet {
 		// Properties est une Map<clé, valeur> pratique pour générer du JSON
 		Properties resultat = new Properties();
         try  {
-           resultat.put("records", dao.getDiscount_Code());
-        }  catch( SQLException e){
+           String code = request.getParameter("discount_code");
+           String taux = request.getParameter("rate");
+           dao.addDiscountCode(code, Float.valueOf(taux));
+        }  catch( Exception e){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resultat.put("records", Collections.EMPTY_LIST);
             resultat.put("message", e.getMessage());

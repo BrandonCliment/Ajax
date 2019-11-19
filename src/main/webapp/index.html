@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>Edition des taux de remise (AJAX)</title>
@@ -17,8 +18,8 @@
             function showCodes() {
                 // On fait un appel AJAX pour chercher les codes
                 $.ajax({
-                    url: "DiscountCodeInJsonServlet",
-                    dataType: "json",
+                    url: "DiscountCode",
+                        dataType: "json",
                     error: showError,
                     success: // La fonction qui traite les résultats
                             function (result) {
@@ -31,8 +32,8 @@
                             }
                 });
             }
-
-            // Ajouter un code
+            
+                        // Ajouter un code
             function addCode() {
                 $.ajax({
                     url: "addCode",
@@ -72,39 +73,59 @@
 
         </script>
         <!-- un CSS pour formatter la table -->
+        <style>
+            			table {
+				font-family: verdana,arial,sans-serif;
+				font-size:11px;
+				color:#333333;
+				border-width: 1px;
+				border-color: #666666;
+				border-collapse: collapse;
+			}
+			table th {
+				border-width: 1px;
+				padding: 8px;
+				border-style: solid;
+				border-color: #666666;
+				background-color: #dedede;
+			}
+			table td {
+				border-width: 1px;
+				padding: 8px;
+				border-style: solid;
+				border-color: #666666;
+				background-color: #ffffff;
+			}
+        </style>
         <link rel="stylesheet" type="text/css" href="css/tableformat.css">
     </head>
     <body>
         <div>
-            Cette page utilise les servlets suivantes :
+	<h1>Cette page utilise les servlets suivantes :</h1>
             <ul>
-                <li><a href="allCodes" target="_blank">ListCodesJsonServlet : liste les codes</a></li>
-                <li><a href="addCode?code=D&taux=12.34" target="_blank">AddCodeJsonServlet : ajoute un code</a></li>
-                <li><a href="deleteCode?code=D" target="_blank">DeleteCodeJsonServlet : supprime un code</a></li>
+                <li><a href="DiscountCode" target="_blank">ListCodesJsonServlet : liste les codes</a></li>
+                <li><a href="addCode" target="_blank">AddCodeJsonServlet : ajoute un code</a></li>
+
             </ul>
-            La page utilise également le <a href="https://mustache.github.io/" target="_blank">moteur de template Mustache</a> pour formatter le résultat.<br>
-            <hr>
         </div>
-        <!-- On montre le formulaire de saisie -->
-        <h1>Edition des taux de remise (AJAX)</h1>
         <form id="codeForm" onsubmit="event.preventDefault(); addCode();">
             <fieldset><legend>Saisie d'un taux de remise</legend>
-            Code : <input id="code" name="code" size="1" maxlength="1" pattern="[A-Z]{1,1}" title="Une lettre en MAJUSCULES"><br/>
-            Taux : <input id="taux" name="taux" type="number" step="0.01" min="0.0" max="99.99" size="5"><br/>
+            Code : <input id="code" name="code" required size="1" maxlength="1" pattern="[A-Z]{1,1}" title="Une lettre en MAJUSCULES"><br/>
+            Taux : <input id="taux" name="taux" type="number" step="0.01" min="0.0" max="99.99"><br/>
             <input type="submit" value="Ajouter">
             </fieldset>
         </form>
-         <!-- La zone où les résultats vont s'afficher -->
+	<!-- La zone où la liste des codes va s'afficher -->
         <div id="codes"></div>
 
         <!-- Le template qui sert à formatter la liste des codes -->
         <script id="codesTemplate" type="text/template">
             <TABLE>
-            <tr><th>Code</th><th>Taux</th><th>Action</th></tr>
+            <tr><th>Code</th><th>Taux</th></tr>
             {{! Pour chaque enregistrement }}
             {{#records}}
                 {{! Une ligne dans la table }}
-                <TR><TD>{{discount_code}}</TD><TD>{{rate}}</TD><TD><button onclick="deleteCode('{{discountCode}}')">Supprimer</button></TD></TR>
+                <TR><TD>{{discount_code}}</TD><TD>{{rate}}</TD></TR>
             {{/records}}
             </TABLE>
         </script>

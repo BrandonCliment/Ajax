@@ -70,7 +70,7 @@ public class DAO {
         public List<CodeEntity> getDiscount_Code() throws SQLException{
             	List<CodeEntity> result = new ArrayList<>();
 
-		String sql = "SELECT * FROM DISCOUNT_CODE WHERE DISCOUNT_CODE";
+		String sql = "SELECT * FROM DISCOUNT_CODE";
 		try (Connection connection = myDataSource.getConnection(); // On crée un statement pour exécuter une requête
 			Statement stmt = connection.createStatement();
                         ResultSet rs = stmt.executeQuery(sql)) {
