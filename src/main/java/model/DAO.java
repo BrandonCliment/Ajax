@@ -48,10 +48,10 @@ public class DAO {
 
 		}  catch (SQLException ex) {
 			Logger.getLogger("DAO").log(Level.SEVERE, null, ex);
-			throw new Exception(ex.getMessage());
+			throw ex;
 		}
         }
-        public int deleteDiscountCode(String code) throws Exception{
+        public int deleteDiscountCode(String code) throws SQLException{
             String sql = "DELETE FROM DISCOUNT_CODE WHERE DISCOUNT_CODE = ?";
 		try (   Connection connection = myDataSource.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(sql)
@@ -63,7 +63,7 @@ public class DAO {
 
 		}  catch (SQLException ex) {
 			Logger.getLogger("DAO").log(Level.SEVERE, null, ex);
-			throw new SQLException(ex.getMessage());
+			throw ex;
 		}
         }        
         

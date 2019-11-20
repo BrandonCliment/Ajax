@@ -11,19 +11,19 @@ package model;
  */
 public class CodeEntity {
     
-    private String discount_code;
+    private String code;
     private float rate ;
 
     public CodeEntity(String code, float tx){
-        this.discount_code=code;
+        this.code=code;
         this.rate=tx;
     }
     public String getDiscount_code() {
-        return discount_code;
+        return code;
     }
 
-    public void setDiscount_code(String discount_code) {
-        this.discount_code = discount_code;
+    public void setDiscount_code(String code) {
+        this.code = code;
     }
 
     public float getRate() {

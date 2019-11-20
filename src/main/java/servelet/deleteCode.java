@@ -10,7 +10,6 @@ import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.Properties;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,8 +23,8 @@ import model.DataSourceFactory;
  *
  * @author pedago
  */
-@WebServlet(name = "addCode", urlPatterns = {"/addCode"})
-public class addCode extends HttpServlet {
+@WebServlet(name = "deleteCode", urlPatterns = {"/deleteCode"})
+public class deleteCode extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,12 +43,11 @@ public class addCode extends HttpServlet {
 		Properties resultat = new Properties();
         try  {
            String code = request.getParameter("code");
-           String taux = request.getParameter("taux");
-           dao.addDiscountCode(code, Float.valueOf(taux));
-           resultat.put("message", "code ajouté");
-        }  catch( Exception e){
+           dao.deleteDiscountCode(code);
+           resultat.put("message", "code supprimé");
+        }  catch( SQLException e){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resultat.put("message", e.getMessage());
+            resultat.put("message", "Impossible de supprimer le code");
         }
         try (PrintWriter out = response.getWriter()) {
         // On spécifie que la servlet va générer du JSON
